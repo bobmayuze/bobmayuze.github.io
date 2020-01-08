@@ -1,38 +1,17 @@
 ---
-title: Hello World
+title: 飞向宇宙，浩瀚无垠
+tag: 闲聊
+date: 2020-01-07
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
-## Quick Start
+最近陪着我上大学时入手的 MacBook 电池因为老化严重，没法儿继续服役了。所以我去 Apple 的 Genius Bar 更换了我的电池，顺便把我的系统也重装了。每次重装完系统，我都有一种人生重新开始的感觉。于是捡起了自己之前丢了很久的博客，觉得应该好好修理一下了。
 
-### Create a new post
+距离12月底考完最后一场试，大学还剩下最后一个学期。日子也一步一步的挪到了2020年。现在回头看看，感觉时间过的真的好快，我们都已经到2020年了。小时候一直觉得这个是一个科幻小说里才会出现的年代。但是纽约上州漫天飞舞的鹅毛大雪又狠狠的把我拉回了现实，我仿佛又见到了4年前刚来RPI的小UZ。那个时候我也正好刚搭了我的博客没几天，然后兴冲冲的入手了 live4.fun 这个域名。当时想的很简单，生容易，活容易，生活不容易。所以希望在自己短短几十年的人生里，能够活得洒脱，活出自我。但是经历了这4年后，我发现自己的想法其实有改变蛮多的。
 
-``` bash
-$ hexo new "My New Post"
-```
+在这4年里，我经历了2段实习，一段为期一年的正式工作，还有一段正在进行的爱情。从4年前那个踌躇满志意气风发的小小少年，到如今任然是踌躇满志，但是多了几分成熟稳重的青年来看，大学本科教育确实是帮助我成长了不少。为人处事也好，职业能力也好，我认为大学都是一个相对不错的起点相比高中毕业直接工作的话。之所以说相对不错，是因为我们不能 leave out 那些少年成才，一飞冲天的大佬们。但是我相信 Hard work will always pay back one day. 尊重客观事实，尊重社会规则也许是更稳妥的选择。不过这就像投资 Disruptive Tech, 战略上要考虑都投，而不是单纯冲一个方向，整个 Net Gain 会更容易变成 Positive。
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+但是说到教育，最近看了导演陈为军的一部关于中国教育的纪录片[出路 Education,Education](https://movie.douban.com/subject/26133459//)。这个片子从3位主角的视角讲述了教育产业化后，生活的变动和社会实际情况。其实我感觉换个角度看，自己其实和那些农村里出来读书的孩子差不多。努力上学，留学，然后在找一份体面的工作亦或者是继承家业。我不知道是不是我这个年代的问题，但是我真的有点惧怕那种一眼望得到头的生活。可能是千禧一代的我们在信息获取的渠道上相比之前更加简便，很多时候信息甚至会主动找上门来。不过我相信大部分人的人生轨迹应该都是很相似的，特别是当我们把 granularity 升高的时候，发现人无非就是出生-结婚-养育后代然后死去。但是我们把这个轨迹拆开来往细了看，往往就会体验到不同的人生百态。
 
-### Run server
+Anyway, 我觉得这可能是一篇无病呻吟的文章，也有可能是一篇受人喜欢的文章。我觉得这里边儿最难的，还是范冲淹的那句 **不以物喜不以己悲** 。 感觉说白了把，就是没心没肺，生活不累。 以前上学的时候，只是知道按照老师和书本后面的要求朗读并背诵全文。现在稍微长大点了，才发现，这个事儿把它真挺难做。现在觉得随大流，随主流其实也是有一定道理的。因为大流，主流代表了主要流量。追随主要流量，满足它的需求，结果应该也不会差到哪里去。但是，盲目的追求主流，随大流，往往会把我们放到一个我们并不一定喜欢的 Endgame 里面。最终结论就是，不能忽视也不能鄙视主流。相反，要思考为什么主流会这么想，为什么会发展这样，以及我们的 Take Away 和 Action 应该是什么样的。
 
-``` bash
-$ hexo server
-```
 
-More info: [Server](https://hexo.io/docs/server.html)
-
-### Generate static files
-
-``` bash
-$ hexo generate
-```
-
-More info: [Generating](https://hexo.io/docs/generating.html)
-
-### Deploy to remote sites
-
-``` bash
-$ hexo deploy
-```
-
-More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
