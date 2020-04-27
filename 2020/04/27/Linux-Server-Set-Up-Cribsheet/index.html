@@ -54,7 +54,7 @@
 <meta property="og:description" content="Install ZSH Connect to your EC2 instance Install zsh : 1$ sudo apt-get update &amp;&amp; sudo apt-get install zsh Edit your passwd configuration file to tell which shell to use for user ubuntu : sudo">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-27T20:37:04.000Z">
-<meta property="article:modified_time" content="2020-04-27T20:47:54.791Z">
+<meta property="article:modified_time" content="2020-04-27T20:49:40.286Z">
 <meta property="article:author" content="Yuze Ma">
 <meta name="twitter:card" content="summary">
 
@@ -204,7 +204,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-04-27 16:37:04 / Modified: 16:47:54" itemprop="dateCreated datePublished" datetime="2020-04-27T16:37:04-04:00">2020-04-27</time>
+              <time title="Created: 2020-04-27 16:37:04 / Modified: 16:49:40" itemprop="dateCreated datePublished" datetime="2020-04-27T16:37:04-04:00">2020-04-27</time>
             </span>
 
           
@@ -237,12 +237,12 @@
 <li>Install zsh : <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update &amp;&amp; sudo apt-get install zsh</span><br></pre></td></tr></table></figure></li>
 <li>Edit your passwd configuration file to tell which shell to use for user <code>ubuntu</code> : <code>sudo vim /etc/passwd</code></li>
 <li>Look for <code>ubuntu</code> user, and replace <code>bin/bash</code> by <code>bin/zsh</code></li>
-<li>Install OhMyZsh : <code>sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</code></li>
+<li>Install OhMyZsh : <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure></li>
 <li>Disconnect from your instance and reconnect it. </li>
 </ol>
 <h1 id="Install-Node-and-npm"><a href="#Install-Node-and-npm" class="headerlink" title="Install Node and npm"></a>Install Node and npm</h1><ol>
 <li>Connect to your EC2 instance</li>
-<li>Install node <code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash</code></li>
+<li>Install node <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash</span><br></pre></td></tr></table></figure></li>
 <li>Activate nvm by typing the following at the command line.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ . ~/.nvm/nvm.sh</span><br></pre></td></tr></table></figure></li>
 <li>Use nvm to install the latest version of Node.js by typing the following at the command line.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install node</span><br></pre></td></tr></table></figure></li>
 <li>Test the installation<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node -e <span class="string">"console.log('Running Node.js ' + process.version)"</span></span><br></pre></td></tr></table></figure>
