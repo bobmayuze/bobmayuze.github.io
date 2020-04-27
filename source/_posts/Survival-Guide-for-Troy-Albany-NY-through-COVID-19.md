@@ -31,9 +31,18 @@ Price chopper/market 32 7 a.m. to 10:00 p.m 具体参考[营业时间变动及�
 |[紫荆阁](https://goo.gl/maps/A1oqtiGF5CFzLd7f8)|未知|未知|未知|未知|未知|
 |[俏花旦](https://goo.gl/maps/FaqvDvq6XmxwBX6V7)|未知|未知|未知|未知|未知|
 |[雨亭](https://goo.gl/maps/ZFEQ2PmqMNmEvwZ67)|未知|未知|未知|未知|未知|
-|[石头记](https://goo.gl/maps/jsabepjXhV7FdmGs7)|运行中|未知|是|未知|518-867-8888|
+|[石头记](https://goo.gl/maps/jsabepjXhV7FdmGs7)|正常开业|未知|是|未知|518-867-8888|
 |[Teaplus](https://goo.gl/maps/CRcHDeofoKx6CLzr5)|未知|未知|未知|未知|未知|
-|[西安味道](https://goo.gl/maps/RZbvJotqcCeM55Rg9)|未知|未知|未知|未知|未知|
+|[西安味道](https://goo.gl/maps/RZbvJotqcCeM55Rg9)|正常开业|未知|是|未知|518-272-1236|
+|[沪上人家](https://g.page/hushouse?share)|正常开业|未知|是|未知|518-313-7090|
+
+## 餐馆二维码
+
+石头记
+![Image](https://i.imgur.com/bHqqvkW.jpg)
+
+红蓝Red&Blue
+![Image](https://i.imgur.com/kd78k2y.jpg)
 
 ## 如果你对吃的没什么要求
 考虑下 [Soylent](https://soylent.com/) 把同学。风靡硅谷的码农代餐，你值得拥有。4刀一顿解决一切问题。
