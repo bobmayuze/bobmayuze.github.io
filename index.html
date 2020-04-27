@@ -203,7 +203,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-04-27 16:37:04 / Modified: 16:49:40" itemprop="dateCreated datePublished" datetime="2020-04-27T16:37:04-04:00">2020-04-27</time>
+              <time title="Created: 2020-04-27 16:37:04 / Modified: 16:55:43" itemprop="dateCreated datePublished" datetime="2020-04-27T16:37:04-04:00">2020-04-27</time>
             </span>
 
           
@@ -249,10 +249,14 @@
 
 </li>
 </ol>
-<h1 id="Install-docker"><a href="#Install-docker" class="headerlink" title="Install docker"></a>Install docker</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSl https://get.docker.com -o get-docker.sh</span><br></pre></td></tr></table></figure>
+<h1 id="Install-docker-and-docker-compose"><a href="#Install-docker-and-docker-compose" class="headerlink" title="Install docker and docker-compose"></a>Install docker and docker-compose</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSl https://get.docker.com -o get-docker.sh</span><br></pre></td></tr></table></figure>
 
 <h2 id="Add-user-to-docker-group"><a href="#Add-user-to-docker-group" class="headerlink" title="Add user to docker group"></a>Add user to docker group</h2><p>Check and add permission</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd | grep &#123;<span class="variable">$USER_NAME</span>&#125;</span><br><span class="line">sudo usermode -aG docker &#123;<span class="variable">$USER_NAME</span>&#125;</span><br><span class="line">cat /etc/group | grep docker</span><br></pre></td></tr></table></figure>
+
+<h2 id="Install-docker-compose"><a href="#Install-docker-compose" class="headerlink" title="Install docker-compose"></a>Install docker-compose</h2><p><a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">Source link</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo curl -L <span class="string">"https://github.com/docker/compose/releases/download/1.25.5/docker-compose-<span class="variable">$(uname -s)</span>-<span class="variable">$(uname -m)</span>"</span> -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line">$ sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
 
 <h1 id="Install-python-with-anaconda"><a href="#Install-python-with-anaconda" class="headerlink" title="Install python with anaconda"></a>Install python with anaconda</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -O https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh</span><br><span class="line">$ chmod +x Anaconda3-2019.03-Linux-x86_64.sh</span><br><span class="line">$ ./Anaconda3-2019.03-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
 
