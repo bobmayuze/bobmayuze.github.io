@@ -41,7 +41,7 @@ $ node -e "console.log('Running Node.js ' + process.version)"
 ```
 
 
-# Install docker 
+# Install docker and docker-compose 
 ```bash
 curl -fsSl https://get.docker.com -o get-docker.sh
 ```
@@ -56,12 +56,27 @@ cat /etc/group | grep docker
 
 ```
 
+## Install docker-compose
+
+[Source link](https://docs.docker.com/compose/install/)
+
+```bash
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+```
+
+
 # Install python with anaconda
 
 ```bash
 $ curl -O https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
 $ chmod +x Anaconda3-2019.03-Linux-x86_64.sh
 $ ./Anaconda3-2019.03-Linux-x86_64.sh
+```
+
+Make sure the installation file should also be linked via the path concatenation
+```bash
+export PATH=$HOME/anaconda3/bin:$PATH
 ```
 
 
