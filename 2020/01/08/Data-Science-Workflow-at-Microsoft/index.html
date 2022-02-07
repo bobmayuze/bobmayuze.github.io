@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://live4/fun').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="最近听了一场微软在EngineeringDaily的关于数据科学团队协作和工作流的Podcast分享，觉得挺有意思，于是爬上去看了看，发现还是挺不错的。这篇文章主要用来描述在微软，数据科学项目是如何被执行落地和交付的。之后会再想办法挖一下啊其他家大厂的这个方向上的工作流。当然我个人认为工作流这种东西把，最有价值的点不是具体执行什么内容，而是为什么要执行这些内容和什么时候去执行这些内容。顺便贴一下原">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微软的数据科学工作流">
+<meta property="og:url" content="http://live4/fun/2020/01/08/Data-Science-Workflow-at-Microsoft/index.html">
+<meta property="og:site_name" content="YuuuZee&#39;s Blog">
+<meta property="og:description" content="最近听了一场微软在EngineeringDaily的关于数据科学团队协作和工作流的Podcast分享，觉得挺有意思，于是爬上去看了看，发现还是挺不错的。这篇文章主要用来描述在微软，数据科学项目是如何被执行落地和交付的。之后会再想办法挖一下啊其他家大厂的这个方向上的工作流。当然我个人认为工作流这种东西把，最有价值的点不是具体执行什么内容，而是为什么要执行这些内容和什么时候去执行这些内容。顺便贴一下原">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/media/overview/tdsp-lifecycle2.png">
+<meta property="og:image" content="https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/media/overview/tdsp-tasks-by-roles.png#lightbox">
+<meta property="article:published_time" content="2020-01-08T07:47:44.000Z">
+<meta property="article:modified_time" content="2020-02-07T05:52:07.994Z">
+<meta property="article:author" content="Yuze Ma">
+<meta property="article:tag" content="DataScience">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/media/overview/tdsp-lifecycle2.png">
+
+<link rel="canonical" href="http://live4/fun/2020/01/08/Data-Science-Workflow-at-Microsoft/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>微软的数据科学工作流 | YuuuZee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YuuuZee's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">To infinity and beyond!</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://live4/fun/2020/01/08/Data-Science-Workflow-at-Microsoft/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yuze Ma">
+      <meta itemprop="description" content="飞向宇宙，浩瀚无限">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YuuuZee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微软的数据科学工作流
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-08 15:47:44" itemprop="dateCreated datePublished" datetime="2020-01-08T15:47:44+08:00">2020-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-07 13:52:07" itemprop="dateModified" datetime="2020-02-07T13:52:07+08:00">2020-02-07</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/01/08/Data-Science-Workflow-at-Microsoft/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/08/Data-Science-Workflow-at-Microsoft/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近听了一场微软在EngineeringDaily的关于数据科学团队协作和工作流的Podcast分享，觉得挺有意思，于是爬上去看了看，发现还是挺不错的。这篇文章主要用来描述在微软，数据科学项目是如何被执行落地和交付的。之后会再想办法挖一下啊其他家大厂的这个方向上的工作流。当然我个人认为工作流这种东西把，最有价值的点不是具体执行什么内容，而是为什么要执行这些内容和什么时候去执行这些内容。顺便贴一下<a href="https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/" target="_blank" rel="noopener">原文地址</a></p>
+<h1 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h1><h2 id="大致的工作流流程"><a href="#大致的工作流流程" class="headerlink" title="大致的工作流流程"></a>大致的工作流流程</h2><p>首先从大致的工作流程出发，这一点非常直观。下边儿这张图比较简明扼要的概括了一个数据科学项目有哪些流程。主要是：<br><img src="https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/media/overview/tdsp-lifecycle2.png" alt="image"></p>
+<ol>
+<li>商业理解</li>
+<li>数据获取清理</li>
+<li>建模</li>
+<li>部署</li>
+<li>成果检测与交付</li>
+</ol>
+<h2 id="角色介绍"><a href="#角色介绍" class="headerlink" title="角色介绍"></a>角色介绍</h2><p>具体这5个流程中每个流程应该完成那些事情，以及对应的Deliverable会在<a href="#overview-%e6%b5%81%e7%a8%8b%e6%a6%82%e8%a7%88">后面</a>详细介绍一下。然后在这整个5大块的工作流程过程当中，又分为一下4种角色：</p>
+<ol>
+<li>Solution Architect 解决方案架构师 </li>
+<li>Project Manager 项目经理</li>
+<li>Data Scientist 数据科学家</li>
+<li>Project Lead 项目负责人</li>
+</ol>
+<p>具体的这4个角色是如何在上边儿几个流程里协同工作的流程以及不同流程的Deliverable可以参考下面这个流程图：</p>
+<p><img src="https://docs.microsoft.com/en-us/azure/machine-learning/team-data-science-process/media/overview/tdsp-tasks-by-roles.png#lightbox" alt="image"></p>
+<h2 id="标准模版项目结构"><a href="#标准模版项目结构" class="headerlink" title="标准模版项目结构"></a>标准模版项目结构</h2><p>对数据科学团队（大概4人以上）来说，标准化数据科学项目对于项目执行以及管理是非常重要的。如果团队非常小，只有2个人，其实不太需要拘泥于标准化项目结构。但是当团队扩张之后就需要有一个好的标准化的模版来参考。在微软的<a href="https://github.com/Azure/Azure-TDSP-ProjectTemplate" target="_blank" rel="noopener">标准数据科学项目</a>中，一个项目主要由3个部分组成：项目文档，数据源，代码。这里对于项目代码文档和项目功能性/商业需求文档是分开的，项目代码文档应当存在代码这个部分里面。因为看这两类的人群不一样，意图也不太一样，所以最好分开。</p>
+<h2 id="数据科学项目技术架构与工具"><a href="#数据科学项目技术架构与工具" class="headerlink" title="数据科学项目技术架构与工具"></a>数据科学项目技术架构与工具</h2><p>这边微软的官方文档上边儿给了几个推荐，分别是云端存储，数据库，分布式计算框架比如Hadoop和Spark集群还有一些机器学习服务。他们的GitHub上面有专门的一个<a href="https://github.com/Azure/Azure-TDSP-Utilities" target="_blank" rel="noopener">Repo</a>来介绍工具。我这边个人来讲一般会把工具分为3类：存储，引擎，和算法平台。具体每块有哪些工具可以选型之后会再写篇文章总结一下。不过这里实际上去和项目应用的时候应当按照具体环境实施。如果有解决方案架构师的话，他们往往能给出非常不错的参考建议。</p>
+<h1 id="详细工作流程介绍"><a href="#详细工作流程介绍" class="headerlink" title="详细工作流程介绍"></a>详细工作流程介绍</h1><p>讲完概览，我们这边来详细讲一下工作流程</p>
+<h2 id="阶段1-商业理解"><a href="#阶段1-商业理解" class="headerlink" title="阶段1:商业理解"></a>阶段1:商业理解</h2><h3 id="阶段目标"><a href="#阶段目标" class="headerlink" title="阶段目标"></a>阶段目标</h3><ol>
+<li>定义问题：明确模型要解决的问题以及相关的评估标准。</li>
+<li>定义数据源：明确解决这个问题所需要的数据是否是已有的或者是可能需要额外收集的。</li>
+</ol>
+<h3 id="如何达到这些目标"><a href="#如何达到这些目标" class="headerlink" title="如何达到这些目标"></a>如何达到这些目标</h3><ol>
+<li>定义问题<ol>
+<li>在定义问题的过程中，我们需要知道整个项目想要预测分析的目标量是什么。它可以是Regression来带的Forecast，也可以是某个记录为某个特定Class的可能性。这里其实就是需要 Data Science 团队里面能有人去提供行业背景知识和业务背景知识的了（Industrial Expertise）</li>
+<li>明确问题的类型。微软把数据科学解决的问题分为了5个大类<ol>
+<li>回归：预测量</li>
+<li>分类：预测类别</li>
+<li>分组：就是Clustering，分组</li>
+<li>异常检测：也就是常说的Anomaly Detection</li>
+<li>推荐</li>
+</ol>
+</li>
+<li>定义团队角色和分工</li>
+<li>定义可衡量的项目成功标准。这里微软推荐用<strong>SMART</strong>标准来制定这一标准：<ol>
+<li><strong>S</strong>pecific</li>
+<li><strong>M</strong>easurable</li>
+<li><strong>A</strong>chievable</li>
+<li><strong>R</strong>elevant</li>
+<li><strong>T</strong>ime-bound</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li>定义数据源<br>这里边数据主要可以分为两类，一类就是我们的相关数据或者特征, Indpendent Variables。还有一类就是Dependent Variable。前者可以去确保我们能够通过建模来解决我们的问题，后者可以帮助我们评估模型的效果。</li>
+</ol>
+<h3 id="阶段性交付内容"><a href="#阶段性交付内容" class="headerlink" title="阶段性交付内容"></a>阶段性交付内容</h3><ol>
+<li><a href="https://github.com/Azure/Azure-TDSP-ProjectTemplate/blob/master/Docs/Project/Charter.md" target="_blank" rel="noopener">项目的计划书</a></li>
+<li><a href="https://github.com/Azure/Azure-TDSP-ProjectTemplate/blob/master/Docs/Data_Report/Data%20Defintion.md#raw-data-sources" target="_blank" rel="noopener">数据源以及数据获取方式</a></li>
+<li><a href="https://github.com/Azure/Azure-TDSP-ProjectTemplate/tree/master/Docs/Data_Dictionaries" target="_blank" rel="noopener">数据文档</a></li>
+</ol>
+<h2 id="阶段2-数据获取清理"><a href="#阶段2-数据获取清理" class="headerlink" title="阶段2:数据获取清理"></a>阶段2:数据获取清理</h2><h3 id="阶段目标-1"><a href="#阶段目标-1" class="headerlink" title="阶段目标"></a>阶段目标</h3><ol>
+<li>构建一个干净的，质量优秀的，与阶段1中的目标量相关且了解关系是什么样的数据集。并且将这分数据放在即将要建模的环境里面。</li>
+<li>构建一个能够方便产生上述数据集的数据清洗管道。比如很多ETL都是做这个的。</li>
+</ol>
+<h3 id="如何达到这些目标-1"><a href="#如何达到这些目标-1" class="headerlink" title="如何达到这些目标"></a>如何达到这些目标</h3><p>这一步主要有3步，主要是获取数据，探索数据集，设置数据管道。下面分开讲讲。</p>
+<ol>
+<li>获取数据：这一步需要明确如何获取数据，具体内容视架构而定。比如工具选择上Sqoop还是Flume都得视具体环境决定。解决方案架构师应当帮助数据科学团队明确技术选型。</li>
+<li>探索数据集：数据探索分析，也就是常说的EDA。这里微软提供了一个<a href="https://github.com/Azure/Azure-TDSP-Utilities/blob/master/DataScienceUtilities/DataReport-Utils/Python/IDEAR.ipynb" target="_blank" rel="noopener">样例的数据探索分析的JupyterNotebook</a>,非常具有参考价值。在数据探索完成之后，便可以开始着手对数据的组成以及情况进行了解，之后才是进行建模。对数据分布，组成，以及意义进行了解之后，在模型选择以及构建这一步其实会更加的游刃有余。但是我们不可置否这一步常常会经常的重复进行，因为我们也许会对数据质量不满意或者认为需要更多纬度/特征。</li>
+<li>设置数据工作流：这一步我们需要根据我们的数据以及软件架构建造一个相对简便的数据获取自动化的流程。这一步往往有3种数据收集的方式：<ol>
+<li>批式收集</li>
+<li>流式收集</li>
+<li>二者混合</li>
+</ol>
+</li>
+</ol>
+<h3 id="阶段性交付内容-1"><a href="#阶段性交付内容-1" class="headerlink" title="阶段性交付内容"></a>阶段性交付内容</h3><ol>
+<li><a href="https://github.com/Azure/Azure-TDSP-ProjectTemplate/blob/master/Docs/Data_Report/DataSummaryReport.md" target="_blank" rel="noopener">数据质量报告</a> 可参考上方提到的样例的数据探索分析JupyterNotebook</li>
+<li>解决方案架构：它可以是数据管道的架构图或者是解释。我们会用这个架构来测试新构建的模型。这个结构应该也能够支持我们基于新的数据来刷新之前构建的模型。</li>
+<li>决策点： 重新评估项目，评估是否项目是否可行。</li>
+</ol>
+<h2 id="阶段3-建模"><a href="#阶段3-建模" class="headerlink" title="阶段3:建模"></a>阶段3:建模</h2><h3 id="阶段目标-2"><a href="#阶段目标-2" class="headerlink" title="阶段目标"></a>阶段目标</h3><ol>
+<li>找出对于模型来说最适合的特征</li>
+<li>构造出一个最精准的可用于解决业务问题的机器学习模型</li>
+<li>构造出一个适合部署的机器学习模型</li>
+</ol>
+<h3 id="如何达到这些目标-2"><a href="#如何达到这些目标-2" class="headerlink" title="如何达到这些目标"></a>如何达到这些目标</h3><ol>
+<li>特征工程</li>
+</ol>
+<p>这一步会通过对于数据的总结，聚合以及变形来帮助构造新的特征以达到分析的目的。如果我们想要知道模型的背后是怎么构成的，那么我们就得去理解特征构成的规则以及我们使用的机器学习算法是如何利用特征来构造出这些模型的。这一步其实需要算法能力和业务能力结合。特征工程其实是在平衡尽可能找到相关特征并且避免无关特征。相关特征会帮助我们提升模型的效果，但是无关特征则会给数据集带来很多噪音。</p>
+<ol start="2">
+<li>模型训练</li>
+</ol>
+<p>基于解决的问题类型不同，我们选择的算法往往也不一样。算法选择方向上微软有给一篇<a href="https://docs.microsoft.com/en-us/azure/machine-learning/how-to-select-algorithms" target="_blank" rel="noopener">参考文章</a>。模型训练大致来说有以下4步：</p>
+<ul>
+<li>切割数据为训练集合和测试集合</li>
+<li>构建模型</li>
+<li>评估模型</li>
+<li>选择最优解决方案</li>
+</ul>
+<p>微软这里非常良心的给了一个Baseline模型的<a href="https://github.com/Azure/Azure-TDSP-Utilities/tree/master/DataScienceUtilities/Modeling" target="_blank" rel="noopener">生成工具</a> 是用R语言写的。喜欢R的小伙伴们可以关注一下。但是这个文件最近一次更新是3年前，所以我估计也没什么人在用或者就是非常稳定导致没有更新哈哈哈。</p>
+<h3 id="阶段性交付内容-2"><a href="#阶段性交付内容-2" class="headerlink" title="阶段性交付内容"></a>阶段性交付内容</h3><p>特征列表：构建模型所用到的特征列表。这里微软也有给出一个<a href="https://github.com/Azure/Azure-TDSP-ProjectTemplate/blob/master/Docs/Data_Report/Data%20Defintion.md" target="_blank" rel="noopener">参考文档</a>，非常推荐。<br>模型报告：同样，也有<a href="https://github.com/Azure/Azure-TDSP-ProjectTemplate/blob/master/Docs/Model/Model%201/Model%20Report.md" target="_blank" rel="noopener">模版</a>，不过个人认为不要太纠结于模版，而是要思考模版里边儿的每一块儿背后都是什么，为什么要有它。<br>决策点：这里有2个主要的决策点：1. 这个模型是否能够解决我们提出的问题 2. 如果不能，我们是否需要去回到阶段2重新收集数据，建模。</p>
+<h2 id="阶段4-部署"><a href="#阶段4-部署" class="headerlink" title="阶段4:部署"></a>阶段4:部署</h2><h3 id="阶段目标-3"><a href="#阶段目标-3" class="headerlink" title="阶段目标"></a>阶段目标</h3><p>将模型成功部署到生产环境，为线上业务提供稳定的服务。</p>
+<h3 id="如何达到这些目标-3"><a href="#如何达到这些目标-3" class="headerlink" title="如何达到这些目标"></a>如何达到这些目标</h3><p>尽可能的将模型的部署做到组件化，积木化。具体取决于业务场景。个人认为这块儿主要分为在线预测和离线预测的，这两种场景的部署方式都是大不相同的。</p>
+<h3 id="阶段性交付内容-3"><a href="#阶段性交付内容-3" class="headerlink" title="阶段性交付内容"></a>阶段性交付内容</h3><ol>
+<li>模型性能以及表现的看板</li>
+<li>模型部署结果报告</li>
+<li>解决方案架构</li>
+</ol>
+<h2 id="阶段5-成果检测与交付"><a href="#阶段5-成果检测与交付" class="headerlink" title="阶段5:成果检测与交付"></a>阶段5:成果检测与交付</h2><h3 id="阶段目标-4"><a href="#阶段目标-4" class="headerlink" title="阶段目标"></a>阶段目标</h3><p>交付项目，确认数据管道工作流以及模型效果和部署都能满足需求方的目标。</p>
+<h3 id="如何达到这些目标-4"><a href="#如何达到这些目标-4" class="headerlink" title="如何达到这些目标"></a>如何达到这些目标</h3><ol>
+<li>确认功能上模型能够解决需求方的问题。</li>
+<li>将项目交付给使用模型的组，或者是ML ops团队。</li>
+</ol>
+<h3 id="阶段性交付内容-4"><a href="#阶段性交付内容-4" class="headerlink" title="阶段性交付内容"></a>阶段性交付内容</h3><p>项目结束报告，这里微软也有给出参考的<a href="https://github.com/Azure/Azure-TDSP-ProjectTemplate/blob/master/Docs/Project/Exit%20Report.md" target="_blank" rel="noopener">文档</a> 主要还是总结归纳并且探索之后如何优化。其实还是离不开项目复盘的那几大块。引用最近看的一个主播常说的这叫做<strong>一通百通</strong>。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><ol>
+<li>微软在进行数据科学项目的规范化的时候我们还是能非常直观的感受到大公司的这种流程制定标准的。某种程度上来说，它降低了公司的管理成本，同时也能帮助职员们更好的执行内容。但是这些的前提，我认为还是需要去了解哪些流程是必要的，哪些流程是也许可以省略的。毕竟很多公司可能数据科学团队就3个人，流程搞得太复杂反而会降低效率。</li>
+<li>微软也很认可数据科学项目需要和实际的业务应用场景结合，要接地气。我相信对于在做数据科学的同学们来说，如何和行业专家有效交流的这种能力在这类项目里面是非常宝贵的。</li>
+<li>一个平台型的工具，微软Azure的ML Service，其实还是有一定的learning curve的。产品设计合理的时候，配合产品的培训往往会给项目团队带来非常不错的return。不过这里也说到了，产品设计是否合理，其实是很难界定的。从我个人的角度出发，我觉得一个好的平台型还是得能灵活多变，配套不同的使用场景。比如Excel，你甚至能在一些游戏发布会上看到这个产品的身影。当然，这里的Trade off就是scale的成本。往往不标准化的产品，用的好的能上天，用不习惯的往往觉得设计反人类。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DataScience/" rel="tag"># DataScience</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/07/hello-world/" rel="prev" title="飞向宇宙，浩瀚无垠">
+      <i class="fa fa-chevron-left"></i> 飞向宇宙，浩瀚无垠
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/22/Getting-Started-On-Stocks/" rel="next" title="Getting Started On Stocks">
+      Getting Started On Stocks <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大致的工作流流程"><span class="nav-number">1.1.</span> <span class="nav-text">大致的工作流流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角色介绍"><span class="nav-number">1.2.</span> <span class="nav-text">角色介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准模版项目结构"><span class="nav-number">1.3.</span> <span class="nav-text">标准模版项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据科学项目技术架构与工具"><span class="nav-number">1.4.</span> <span class="nav-text">数据科学项目技术架构与工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#详细工作流程介绍"><span class="nav-number">2.</span> <span class="nav-text">详细工作流程介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#阶段1-商业理解"><span class="nav-number">2.1.</span> <span class="nav-text">阶段1:商业理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段目标"><span class="nav-number">2.1.1.</span> <span class="nav-text">阶段目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何达到这些目标"><span class="nav-number">2.1.2.</span> <span class="nav-text">如何达到这些目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段性交付内容"><span class="nav-number">2.1.3.</span> <span class="nav-text">阶段性交付内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阶段2-数据获取清理"><span class="nav-number">2.2.</span> <span class="nav-text">阶段2:数据获取清理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段目标-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">阶段目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何达到这些目标-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">如何达到这些目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段性交付内容-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">阶段性交付内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阶段3-建模"><span class="nav-number">2.3.</span> <span class="nav-text">阶段3:建模</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段目标-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">阶段目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何达到这些目标-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">如何达到这些目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段性交付内容-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">阶段性交付内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阶段4-部署"><span class="nav-number">2.4.</span> <span class="nav-text">阶段4:部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段目标-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">阶段目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何达到这些目标-3"><span class="nav-number">2.4.2.</span> <span class="nav-text">如何达到这些目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段性交付内容-3"><span class="nav-number">2.4.3.</span> <span class="nav-text">阶段性交付内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阶段5-成果检测与交付"><span class="nav-number">2.5.</span> <span class="nav-text">阶段5:成果检测与交付</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段目标-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">阶段目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何达到这些目标-4"><span class="nav-number">2.5.2.</span> <span class="nav-text">如何达到这些目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段性交付内容-4"><span class="nav-number">2.5.3.</span> <span class="nav-text">阶段性交付内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yuze Ma</p>
+  <div class="site-description" itemprop="description">飞向宇宙，浩瀚无限</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bobmayuze" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bobmayuze" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yuze-ma/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yuze-ma&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yuze.bob.ma@gmail.com" title="E-Mail → mailto:yuze.bob.ma@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuze Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://live4fun.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://live4/fun/2020/01/08/Data-Science-Workflow-at-Microsoft/",
+            identifier: "2020/01/08/Data-Science-Workflow-at-Microsoft/",
+            title: "微软的数据科学工作流"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://live4fun.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

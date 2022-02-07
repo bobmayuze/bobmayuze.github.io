@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://live4/fun').hostname,
+    root: '/',
+    scheme: 'Muse',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="这篇博客混合了对于这篇来自Oreilly的POST的翻译以及个人的一些想法和take away。希望能够帮助你也帮助我更好的去了解2020年AI是不是真的火遍大江南北有很好的落地。 Oreilly 在 2019 年就对AI在企业环境中的落地做了一个调查，有一个非常重要的信息：AI的模型部署现在正在从构建原型转移到了生产环境。下边儿是几个Key point：  85%的受访者已经开始评估AI能为企业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年的AI在企业落地的情况">
+<meta property="og:url" content="http://live4/fun/2020/06/13/AI-Adoption-in-the-enterprise-2020/index.html">
+<meta property="og:site_name" content="YuuuZee&#39;s Blog">
+<meta property="og:description" content="这篇博客混合了对于这篇来自Oreilly的POST的翻译以及个人的一些想法和take away。希望能够帮助你也帮助我更好的去了解2020年AI是不是真的火遍大江南北有很好的落地。 Oreilly 在 2019 年就对AI在企业环境中的落地做了一个调查，有一个非常重要的信息：AI的模型部署现在正在从构建原型转移到了生产环境。下边儿是几个Key point：  85%的受访者已经开始评估AI能为企业">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/1-industry.png">
+<meta property="og:image" content="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/2-role.png">
+<meta property="og:image" content="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/3-functional-parts-of-companies.png">
+<meta property="og:image" content="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/4-bottlenecks.png">
+<meta property="og:image" content="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/5-bottlenecks-with-maturity.png">
+<meta property="article:published_time" content="2020-06-13T08:42:41.000Z">
+<meta property="article:modified_time" content="2020-06-15T07:42:57.743Z">
+<meta property="article:author" content="Yuze Ma">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/1-industry.png">
+
+<link rel="canonical" href="http://live4/fun/2020/06/13/AI-Adoption-in-the-enterprise-2020/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>2020年的AI在企业落地的情况 | YuuuZee's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">YuuuZee's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">To infinity and beyond!</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://live4/fun/2020/06/13/AI-Adoption-in-the-enterprise-2020/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yuze Ma">
+      <meta itemprop="description" content="飞向宇宙，浩瀚无限">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YuuuZee's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020年的AI在企业落地的情况
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-13 16:42:41" itemprop="dateCreated datePublished" datetime="2020-06-13T16:42:41+08:00">2020-06-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-15 15:42:57" itemprop="dateModified" datetime="2020-06-15T15:42:57+08:00">2020-06-15</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/06/13/AI-Adoption-in-the-enterprise-2020/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/13/AI-Adoption-in-the-enterprise-2020/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这篇博客混合了对于<a href="https://www.oreilly.com/radar/ai-adoption-in-the-enterprise-2020/" target="_blank" rel="noopener">这篇来自Oreilly的POST</a>的翻译以及个人的一些想法和take away。希望能够帮助你也帮助我更好的去了解2020年AI是不是真的火遍大江南北有很好的落地。</p>
+<p>Oreilly 在 2019 年就对AI在企业环境中的落地做了一个调查，有一个非常重要的信息：AI的模型部署现在正在从构建原型转移到了生产环境。下边儿是几个Key point：</p>
+<ul>
+<li>85%的受访者已经开始评估AI能为企业带来的效益或者已经在生产环境中使用相关技术。只有15%的受访者表示他们的企业没有进行任何和AI相关的布局。</li>
+<li>超过半数的受访者认为他们的机构是在AI方向上有非常好的落地应用。非常好指的是有在生产环境中落地实践。</li>
+<li>监督学习是最受追捧的，但是对于那些还在评估AI的企业中，深度学习则更加有吸引力。</li>
+<li>缺少机器学习和AI的相关技能已经不是最大的问题了。相反，有22%的受访者表示企业架构和方向上的支持才是最大的阻力。</li>
+<li>有一些机构已经开始用标准化的流程来管理AI项目</li>
+</ul>
+<p>AI模型的落地正在变得更加成熟。现在虽然还是很早期，但是对于公司来讲他们其实还是需要更多的支持。 不管是通用的一些风险模型的这个bias, 数据量不足,以及生产环境的适应不了亦或者是在公司启动正式的打通的数据管理体系 我们相信AI这项技术的落地难度正在逐渐降低。</p>
+<h1 id="受访者分析"><a href="#受访者分析" class="headerlink" title="受访者分析"></a>受访者分析</h1><p>这篇分析一共采访了来自25个行业，其中软件行业占比最大，达到17%。具体可以看下面的图。<br><img src="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/1-industry.png" alt=""></p>
+<h2 id="受访者们的职业"><a href="#受访者们的职业" class="headerlink" title="受访者们的职业"></a>受访者们的职业</h2><p>受访者里真正是DS的岗位只占到了16%，更多的还是非DS岗位。<br><img src="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/2-role.png" alt=""></p>
+<h2 id="地区分布"><a href="#地区分布" class="headerlink" title="地区分布"></a>地区分布</h2><p>50%来自北美，23%左右来自欧洲，15%亚洲，剩下南美，东欧等总计在15%。</p>
+<blockquote>
+<p>所以目前还是北美的公司们在AI方向上比较老大，然后是欧洲。可能亚洲因为人口比较多，便宜，所以还没有跟上来。当然我认为很大一部分原因是Oreilly是一家美国公司，对于亚太地区的市场不太熟悉。</p>
+</blockquote>
+<h1 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h1><p>超过半数的受访者认为他们有非常成熟的落地应用，三分之一的受访者认为他们还在评估阶段。这个和去年相比非常有意思。去年是54%的还在评估，27%的有成熟落地应用。对于完全不布局的公司占比降低了将近20%，今年只有15%没做布局。</p>
+<p>也就是说有85%的公司在最起码尝试去落地应用了，那具体是那些方向上呢，下面这个图给出了很好的分布:<br><img src="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/3-functional-parts-of-companies.png" alt=""></p>
+<p>可以从上图看出最大是在研发方向上面，然后另外就是客户服务。这个分布和去年比较没啥变动，说明落地的场景也没特别多的变动.</p>
+<blockquote>
+<p>这边我和编辑持不同意见，或者说研发这块儿还是可以继续细分的。比如中国的新基建，城市大脑，数字政府这些项目都有大量的AI技术落地在里面</p>
+</blockquote>
+<h2 id="落地难点"><a href="#落地难点" class="headerlink" title="落地难点"></a>落地难点</h2><p>下面是落地难点的比率：<br><img src="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/4-bottlenecks.png" alt=""></p>
+<p>今年对于人才需求上不足导致的难以落地的占比和去年相比是有所下降，去年这个问题占到了18%，今年只有17%左右。有意思的是，“难以找到落地的场景”占到了今年的难落地原因的前三，占了20% 这里还有一张根据公司类型细分的分布分析:</p>
+<p><img src="https://www.oreilly.com/radar/wp-content/uploads/sites/3/2020/02/5-bottlenecks-with-maturity.png" alt=""></p>
+<blockquote>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/07/Machine-Learning-Commercialization-from-Cloud-Service-Provider/" rel="prev" title="Machine Learning Commercialization from Cloud Service Provider">
+      <i class="fa fa-chevron-left"></i> Machine Learning Commercialization from Cloud Service Provider
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#受访者分析"><span class="nav-number">1.</span> <span class="nav-text">受访者分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#受访者们的职业"><span class="nav-number">1.1.</span> <span class="nav-text">受访者们的职业</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地区分布"><span class="nav-number">1.2.</span> <span class="nav-text">地区分布</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结果分析"><span class="nav-number">2.</span> <span class="nav-text">结果分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#落地难点"><span class="nav-number">2.1.</span> <span class="nav-text">落地难点</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yuze Ma</p>
+  <div class="site-description" itemprop="description">飞向宇宙，浩瀚无限</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bobmayuze" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bobmayuze" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yuze-ma/" title="LinkedIn → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yuze-ma&#x2F;" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i>LinkedIn</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yuze.bob.ma@gmail.com" title="E-Mail → mailto:yuze.bob.ma@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuze Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://live4fun.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "http://live4/fun/2020/06/13/AI-Adoption-in-the-enterprise-2020/",
+            identifier: "2020/06/13/AI-Adoption-in-the-enterprise-2020/",
+            title: "2020年的AI在企业落地的情况"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://live4fun.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
